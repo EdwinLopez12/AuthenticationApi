@@ -22,11 +22,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthenticationApiSetUpDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    /**
-     * The Already setup.
-     */
-    boolean alreadySetup;
-
     private final PrivilegeJpaRepository privilegeJpaRepository;
     private final RoleJpaRepository roleJpaRepository;
     private final UserJpaRepository userJpaRepository;
@@ -37,9 +32,7 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        if(alreadySetup){
-            return;
-        }
+
         // BREAD to role
         Privilege browseRole = createPrivilegeIfNotFound("BROWSE_ROLE");
         Privilege readRole = createPrivilegeIfNotFound("READ_ROLE");
@@ -63,7 +56,6 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
         createUserIfNoFound("ADMIN", "ADMIN_ROLE");
         createUserIfNoFound("TEST", "TEST_ROLE");
 
-        alreadySetup = true;
     }
 
     /**
