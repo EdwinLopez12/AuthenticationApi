@@ -51,7 +51,7 @@ public class AuthController {
      * @param loginUserRequest the login user request
      * @return the response entity
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody LoginUserRequest loginUserRequest){
         return new ResponseEntity<>(authService.login(loginUserRequest), HttpStatus.OK);
     }
@@ -67,6 +67,12 @@ public class AuthController {
         return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
     }
 
+    /**
+     * Logout response entity.
+     *
+     * @param logoutUserRequest the logout user request
+     * @return the response entity
+     */
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@Valid @RequestBody LogoutUserRequest logoutUserRequest){
         refreshTokenService.deleteRefreshToken(logoutUserRequest.getRefreshToken());
