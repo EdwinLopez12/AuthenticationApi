@@ -1,5 +1,6 @@
 package com.authentication.api.domain.service.auth;
 
+import com.authentication.api.domain.exception.AuthenticationApiException;
 import com.authentication.api.infrastructure.persistense.entity.RefreshToken;
 import com.authentication.api.infrastructure.persistense.jpa.RefreshTokenJpaRepository;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -30,5 +32,26 @@ public class RefreshTokenService {
                 .createdAt(Instant.now())
                 .build();
         return refreshTokenJpaRepository.save(refreshToken);
+    }
+
+    /**
+     * Validate refresh token.
+     *
+     * @param token the token
+     */
+    void validateRefreshToken(String token){
+        Optional<RefreshToken> refreshTokenOptinal = refreshTokenJpaRepository.findByToken(token);
+        if(!refreshTokenOptinal.isPresent()){
+            throw new AuthenticationApiException("Invalid refresh token");
+        }
+    }
+
+    /**
+     * Delete refresh token.
+     *
+     * @param token the token
+     */
+    public void deleteRefreshToken(String token){
+        refreshTokenJpaRepository.deleteByToken(token);
     }
 }

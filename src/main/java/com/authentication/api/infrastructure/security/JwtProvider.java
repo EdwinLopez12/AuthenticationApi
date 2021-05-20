@@ -62,6 +62,21 @@ public class JwtProvider {
                 .compact();
     }
 
+    /**
+     * Generate token with username string.
+     *
+     * @param username the username
+     * @return the string
+     */
+    public String generateTokenWithUsername(String username){
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(Date.from(Instant.now()))
+                .signWith(getPrivateKey())
+                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationTimeMillis)))
+                .compact();
+    }
+
     private Key getPrivateKey() {
         try {
             return keyStore.getKey("apiauth", secret.toCharArray());

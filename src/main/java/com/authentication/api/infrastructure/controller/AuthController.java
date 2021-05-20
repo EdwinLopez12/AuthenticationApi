@@ -1,9 +1,8 @@
 package com.authentication.api.infrastructure.controller;
 
-import com.authentication.api.domain.dto.auth.AuthenticationResponse;
-import com.authentication.api.domain.dto.auth.LoginUserRequest;
-import com.authentication.api.domain.dto.auth.RegisterUserRequest;
+import com.authentication.api.domain.dto.auth.*;
 import com.authentication.api.domain.service.auth.AuthService;
+import com.authentication.api.domain.service.auth.RefreshTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthService authService;
+    private final RefreshTokenService refreshTokenService;
 
     /**
      * Signup response entity.
@@ -30,7 +30,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@Valid @RequestBody RegisterUserRequest registerUserRequest){
         authService.signup(registerUserRequest);
-        return new ResponseEntity<>("User register successfully", HttpStatus.OK);
+        return new ResponseEntity<>("User register successfully", HttpStatus.CREATED);
     }
 
     /**
@@ -45,8 +45,32 @@ public class AuthController {
         return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
     }
 
+    /**
+     * Login response entity.
+     *
+     * @param loginUserRequest the login user request
+     * @return the response entity
+     */
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody LoginUserRequest loginUserRequest){
         return new ResponseEntity<>(authService.login(loginUserRequest), HttpStatus.OK);
     }
+
+    /**
+     * Refresh token response entity.
+     *
+     * @param refreshTokenRequest the refresh token request
+     * @return the response entity
+     */
+    @PostMapping("/refresh/token")
+    public ResponseEntity<AuthenticationResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
+        return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@Valid @RequestBody LogoutUserRequest logoutUserRequest){
+        refreshTokenService.deleteRefreshToken(logoutUserRequest.getRefreshToken());
+        return new ResponseEntity<>("Refresh token deleted successfully", HttpStatus.OK);
+    }
+
 }

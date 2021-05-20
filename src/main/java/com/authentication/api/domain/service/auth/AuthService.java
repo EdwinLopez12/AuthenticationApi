@@ -2,6 +2,7 @@ package com.authentication.api.domain.service.auth;
 
 import com.authentication.api.domain.dto.auth.AuthenticationResponse;
 import com.authentication.api.domain.dto.auth.LoginUserRequest;
+import com.authentication.api.domain.dto.auth.RefreshTokenRequest;
 import com.authentication.api.domain.dto.auth.RegisterUserRequest;
 import com.authentication.api.domain.exception.ApiConflict;
 import com.authentication.api.domain.exception.AuthenticationApiException;
@@ -18,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,6 +106,12 @@ public class AuthService {
         userJpaRepository.save(user);
     }
 
+    /**
+     * Login authentication response.
+     *
+     * @param loginUserRequest the login user request
+     * @return the authentication response
+     */
     public AuthenticationResponse login(LoginUserRequest loginUserRequest) {
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUserRequest.getUsername(),
@@ -115,6 +123,24 @@ public class AuthService {
                 .refreshToken(refreshTokenService.generateRefreshToken().getToken())
                 .expiresAt(FormatDates.instantToString(Instant.now().plusMillis(jwtProvider.getJwtExpirationMillis())))
                 .username(loginUserRequest.getUsername())
+                .build();
+    }
+
+    /**
+     * Refresh token authentication response.
+     *
+     * @param refreshTokenRequest the refresh token request
+     * @return the authentication response
+     */
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        User user = userJpaRepository.findByUsername(refreshTokenRequest.getUsername()).orElseThrow(()-> new UsernameNotFoundException("User no found with username: "+refreshTokenRequest.getUsername()));
+        String token = jwtProvider.generateTokenWithUsername(user.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(FormatDates.instantToString(Instant.now().plusMillis(jwtProvider.getJwtExpirationMillis())))
+                .username(user.getUsername())
                 .build();
     }
 }
