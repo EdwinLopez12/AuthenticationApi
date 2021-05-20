@@ -26,7 +26,7 @@ public class MailService {
      * @param token the token
      */
     @Async
-    void setUpEmailData(String email, String token){
+    public void setUpEmailData(String email, String token){
         sendEmail(
                 new NotificationEmail(
                     "Please active your account",

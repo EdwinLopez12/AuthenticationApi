@@ -6,6 +6,7 @@ import org.springframework.mail.MailException;
  * The Authentication api exception.
  */
 public class AuthenticationApiException extends RuntimeException{
+    private static final long serialVersionUID = 1L;
     /**
      * Instantiates a new Authentication api exception.
      *
