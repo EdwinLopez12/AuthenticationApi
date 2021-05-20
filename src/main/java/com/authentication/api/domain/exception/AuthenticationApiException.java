@@ -1,7 +1,5 @@
 package com.authentication.api.domain.exception;
 
-import org.springframework.mail.MailException;
-
 /**
  * The Authentication api exception.
  */
