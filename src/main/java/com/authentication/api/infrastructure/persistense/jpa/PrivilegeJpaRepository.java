@@ -10,4 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PrivilegeJpaRepository extends JpaRepository<Privilege, Long> {
 
+    /**
+     * Find by name privilege.
+     *
+     * @param name the name
+     * @return the privilege
+     */
+    Privilege findByName(String name);
+
 }
