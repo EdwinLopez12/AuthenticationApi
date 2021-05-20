@@ -2,6 +2,7 @@ package com.authentication.api.domain.service.auth;
 
 import com.authentication.api.domain.dto.auth.RegisterUserRequest;
 import com.authentication.api.domain.exception.ApiConflict;
+import com.authentication.api.domain.exception.AuthenticationApiException;
 import com.authentication.api.domain.service.mail.MailService;
 import com.authentication.api.infrastructure.persistense.entity.User;
 import com.authentication.api.infrastructure.persistense.entity.VerificationToken;
@@ -67,5 +68,27 @@ public class AuthService {
                 .build();
         verificationTokenJpaRepository.save(verificationToken);
         return token;
+    }
+
+    /**
+     * Verify account.
+     *
+     * @param token the token
+     */
+    public void verifyAccount(String token) {
+        Optional<VerificationToken> verificationToken = verificationTokenJpaRepository.findByToken(token);
+        fetchUserAndEnable(verificationToken.orElseThrow(() -> new AuthenticationApiException("Invalid Token")));
+    }
+
+    /**
+     * Fetch user and enable.
+     *
+     * @param verificationToken the verification token
+     */
+    private void fetchUserAndEnable(VerificationToken verificationToken) {
+        String username = verificationToken.getUser().getUsername();
+        User user = userJpaRepository.findByUsername(username).orElseThrow(() -> new AuthenticationApiException("User not found with name - " + username));
+        user.setIsEnable(true);
+        userJpaRepository.save(user);
     }
 }
