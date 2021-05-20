@@ -1,0 +1,34 @@
+package com.authentication.api.domain.service.auth;
+
+import com.authentication.api.infrastructure.persistense.entity.RefreshToken;
+import com.authentication.api.infrastructure.persistense.jpa.RefreshTokenJpaRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
+import java.util.UUID;
+
+/**
+ * The Refresh token service.
+ */
+@Service
+@AllArgsConstructor
+@Transactional
+public class RefreshTokenService {
+
+    private final RefreshTokenJpaRepository refreshTokenJpaRepository;
+
+    /**
+     * Generate refresh token refresh token.
+     *
+     * @return the refresh token
+     */
+    public RefreshToken generateRefreshToken(){
+        RefreshToken refreshToken = RefreshToken.builder()
+                .token(UUID.randomUUID().toString())
+                .createdAt(Instant.now())
+                .build();
+        return refreshTokenJpaRepository.save(refreshToken);
+    }
+}

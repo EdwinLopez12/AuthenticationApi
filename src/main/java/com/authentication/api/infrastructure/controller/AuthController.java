@@ -1,5 +1,7 @@
 package com.authentication.api.infrastructure.controller;
 
+import com.authentication.api.domain.dto.auth.AuthenticationResponse;
+import com.authentication.api.domain.dto.auth.LoginUserRequest;
 import com.authentication.api.domain.dto.auth.RegisterUserRequest;
 import com.authentication.api.domain.service.auth.AuthService;
 import lombok.AllArgsConstructor;
@@ -41,5 +43,10 @@ public class AuthController {
     public ResponseEntity<String> verifyAccount(@PathVariable(name = "token") String token){
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody LoginUserRequest loginUserRequest){
+        return new ResponseEntity<>(authService.login(loginUserRequest), HttpStatus.OK);
     }
 }
