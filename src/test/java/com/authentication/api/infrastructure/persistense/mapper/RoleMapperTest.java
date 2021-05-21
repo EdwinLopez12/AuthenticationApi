@@ -39,7 +39,11 @@ class RoleMapperTest {
      */
     @Test
     void toDto() {
-        Role role = new Role(1L,"ADMIN", privilegeList);
+        Role role = Role.builder()
+                .id(1L)
+                .name("ADMIN")
+                .privileges(privilegeList)
+                .build();
 
         RoleResponse dto = mapper.toDto(role);
 
@@ -52,14 +56,16 @@ class RoleMapperTest {
      */
     @Test
     void toEntity() {
-        PrivilegeRequest privilegeRequest = new PrivilegeRequest();
-        privilegeRequest.setName(privilege.getName());
+        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
+                .name(privilege.getName())
+                .build();
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
         privilegeRequestList.add(privilegeRequest);
 
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setName("ADMIN");
-        roleRequest.setPrivileges(privilegeRequestList);
+        RoleRequest roleRequest = RoleRequest.builder()
+                .name("ADMIN")
+                .privileges(privilegeRequestList)
+                .build();
 
         Role role = mapper.toEntity(1L, roleRequest, privilegeList);
         assertEquals(role.getName(), roleRequest.getName());
