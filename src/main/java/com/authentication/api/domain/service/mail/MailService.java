@@ -27,15 +27,14 @@ public class MailService {
      */
     @Async
     public void setUpEmailData(String email, String token){
-        sendEmail(
-                new NotificationEmail(
-                    "Please active your account",
-                    email,
-                    "Thanks to join us. "+
-                            "Please click on the below url to active your account "+
-                            "http://localhost:9090/api/auth/account-verification/"+token
-                )
-        );
+        NotificationEmail notificationEmail = NotificationEmail.builder()
+                .subject("Please active your account")
+                .recipient(email)
+                .body("Thanks to join us. "+
+                        "Please click on the below url to active your account "+
+                        "http://localhost:9090/api/auth/account-verification/"+token)
+                .build();
+        sendEmail(notificationEmail);
     }
 
     private void sendEmail(NotificationEmail notificationEmail) {

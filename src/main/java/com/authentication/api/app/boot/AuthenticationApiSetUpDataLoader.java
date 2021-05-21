@@ -51,10 +51,11 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
         List<Privilege> userPrivileges = Collections.singletonList(testBrowsePrivilege);
 
         createRoleIfNoExist("ADMIN_ROLE", adminPrivileges);
+        createRoleIfNoExist("USER_ROLE", userPrivileges);
         createRoleIfNoExist("TEST_ROLE", userPrivileges);
 
         createUserIfNoFound("ADMIN", "ADMIN_ROLE");
-        createUserIfNoFound("TEST", "TEST_ROLE");
+        createUserIfNoFound("USER", "USER_ROLE");
 
     }
 
@@ -67,9 +68,10 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
     public void createRoleIfNoExist(String name, List<Privilege> privileges) {
         Role role = roleJpaRepository.findByName(name);
         if (role == null) {
-            role = new Role();
-            role.setName(name);
-            role.setPrivileges(privileges);
+            role = Role.builder()
+                    .name(name)
+                    .privileges(privileges)
+                    .build();
             roleJpaRepository.save(role);
         }
     }
@@ -84,8 +86,9 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
     public Privilege createPrivilegeIfNotFound(String privilegeName) {
         Privilege privilege = privilegeJpaRepository.findByName(privilegeName);
         if(privilege == null){
-            privilege = new Privilege();
-            privilege.setName(privilegeName);
+            privilege = Privilege.builder()
+                    .name(privilegeName)
+                    .build();
             privilegeJpaRepository.save(privilege);
         }
         return privilege;
@@ -101,22 +104,25 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
         List<Role> role = Collections.singletonList(roleJpaRepository.findByName(rol));
         Optional<User> userSearch = userJpaRepository.findByUsername(name);
         if(!userSearch.isPresent()){
-            User user = new User();
-            user.setUsername(name);
-            user.setPassword(passwordEncoder.encode("123456"));
-            user.setEmail(name+"@mail.com");
-            user.setRoles(role);
-            user.setIsEnable(true);
+            User user = User.builder()
+                    .username(name)
+                    .password(passwordEncoder.encode("123456"))
+                    .email(name+"@mail.com")
+                    .roles(role)
+                    .isEnable(true)
+                    .build();
             userJpaRepository.save(user);
 
-            VerificationToken verificationToken = new VerificationToken();
-            verificationToken.setToken("2d5eff8a-16c0-46f7-a66f-9aebe0c0388d-"+name);
-            verificationToken.setUser(user);
+            VerificationToken verificationToken = VerificationToken.builder()
+                    .token("2d5eff8a-16c0-46f7-a66f-9aebe0c0388d-"+name)
+                    .user(user)
+                    .build();
             verificationTokenJpaRepository.save(verificationToken);
 
-            RefreshToken refreshToken = new RefreshToken();
-            refreshToken.setToken("e8818837-d76c-4c95-bc72-edc9fdcc693d-"+name);
-            refreshToken.setCreatedAt(Instant.now());
+            RefreshToken refreshToken = RefreshToken.builder()
+                    .token("e8818837-d76c-4c95-bc72-edc9fdcc693d-"+name)
+                    .createdAt(Instant.now())
+                    .build();
             refreshTokenJpaRepository.save(refreshToken);
         }
     }

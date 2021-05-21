@@ -3,6 +3,7 @@ package com.authentication.api.domain.service;
 import com.authentication.api.domain.dto.PrivilegeRequest;
 import com.authentication.api.domain.dto.RoleRequest;
 import com.authentication.api.domain.dto.RoleResponse;
+import com.authentication.api.domain.exception.ApiConflict;
 import com.authentication.api.domain.exception.ApiNotFound;
 import com.authentication.api.infrastructure.persistense.entity.Privilege;
 import com.authentication.api.infrastructure.persistense.entity.Role;
@@ -60,7 +61,7 @@ public class RoleService {
     public RoleResponse createRole(RoleRequest roleRequest){
         Role searchRole = roleJpaRepository.findByName(roleRequest.getName());
         if(searchRole != null){
-            throw new ApiNotFound("Role already exist");
+            throw new ApiConflict("Role already exist");
         }
         List<Privilege> privilegeList = getRolePrivileges(roleRequest);
         Role role = Role.builder()
