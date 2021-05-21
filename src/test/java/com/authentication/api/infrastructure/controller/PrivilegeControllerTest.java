@@ -31,7 +31,7 @@ class PrivilegeControllerTest {
 
     private static final String USERNAME_ADMIN_PRIVILEGES = "ADMIN";
     private static final String PASSWORD_PLAIN = "123456";
-    private static final String USERNAME_TEST_PRIVILEGES = "TEST";
+    private static final String USERNAME_BASIC_PRIVILEGES = "USER";
     private static final String URL_PRIVILEGES = "http://localhost:9090/api/privileges";
 
     @Autowired
@@ -63,8 +63,8 @@ class PrivilegeControllerTest {
      * @throws Exception the exception
      */
     @Test
-    void get_all_privileges_throws_unauthorized_exception_if_user_has_no_privilege() throws Exception {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USERNAME_TEST_PRIVILEGES, PASSWORD_PLAIN));
+    void get_all_privileges_throws_unauthorized_exception_if_user_has_not_browse_privilege() throws Exception {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USERNAME_BASIC_PRIVILEGES, PASSWORD_PLAIN));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
 
         String token = jwtProvider.generateToken(authenticate);
@@ -84,7 +84,7 @@ class PrivilegeControllerTest {
      * @throws Exception the exception
      */
     @Test
-    void get_all_privileges_return_data_if_user_has_privilege() throws Exception {
+    void get_all_privileges_return_data_if_user_has_browse_privilege() throws Exception {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USERNAME_ADMIN_PRIVILEGES, PASSWORD_PLAIN));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
 
