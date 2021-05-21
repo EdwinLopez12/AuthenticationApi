@@ -51,10 +51,11 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
         List<Privilege> userPrivileges = Collections.singletonList(testBrowsePrivilege);
 
         createRoleIfNoExist("ADMIN_ROLE", adminPrivileges);
+        createRoleIfNoExist("USER_ROLE", userPrivileges);
         createRoleIfNoExist("TEST_ROLE", userPrivileges);
 
         createUserIfNoFound("ADMIN", "ADMIN_ROLE");
-        createUserIfNoFound("TEST", "TEST_ROLE");
+        createUserIfNoFound("USER", "USER_ROLE");
 
     }
 
