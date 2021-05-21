@@ -63,8 +63,8 @@ public class AuthService {
                         .isEnable(false)
                         .roles(Collections.singletonList(roleJpaRepository.findByName("USER")))
                         .build();
-                String token = generateVerificationToken(user);
                 userJpaRepository.save(user);
+                String token = generateVerificationToken(user);
                 mailService.setUpEmailData(user.getEmail(), token);
             }else{
                 throw new ApiConflict("Email already exist");
