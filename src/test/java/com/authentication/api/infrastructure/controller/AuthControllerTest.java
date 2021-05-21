@@ -26,6 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * The type Auth controller test.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthControllerTest {
@@ -56,6 +59,9 @@ class AuthControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders
@@ -64,6 +70,11 @@ class AuthControllerTest {
                 .build();
     }
 
+    /**
+     * Signup return status unprocessable entity if data is invalid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void signup_return_status_unprocessable_entity_if_data_is_invalid() throws Exception{
         RegisterUserRequest registerUserRequest = RegisterUserRequest.builder()
@@ -83,6 +94,11 @@ class AuthControllerTest {
         assertEquals(422, response.getStatus());
     }
 
+    /**
+     * Signup return status conflict if username is already use.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void signup_return_status_conflict_if_username_is_already_use() throws Exception{
         RegisterUserRequest registerUserRequest = RegisterUserRequest.builder()
@@ -102,6 +118,11 @@ class AuthControllerTest {
         assertEquals(409, response.getStatus());
     }
 
+    /**
+     * Signup return status conflict if email is already use.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void signup_return_status_conflict_if_email_is_already_use() throws Exception{
         RegisterUserRequest registerUserRequest = RegisterUserRequest.builder()
@@ -121,6 +142,11 @@ class AuthControllerTest {
         assertEquals(409, response.getStatus());
     }
 
+    /**
+     * Signup return status ok if data is valid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void signup_return_status_ok_if_data_is_valid() throws Exception{
         RegisterUserRequest registerUserRequest = RegisterUserRequest.builder()
@@ -142,6 +168,11 @@ class AuthControllerTest {
         assertEquals(201, response.getStatus());
     }
 
+    /**
+     * Verify account return status internal server error if token is invalid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void verifyAccount_return_status_internal_server_error_if_token_is_invalid() throws Exception{
         Optional<VerificationToken> token = verificationTokenJPARepository.findByToken(VERIFICATION_TOKEN_USER_PRIVILEGES);
@@ -155,6 +186,11 @@ class AuthControllerTest {
         }
     }
 
+    /**
+     * Verify account return status ok if token is valid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void verifyAccount_return_status_ok_if_token_is_valid() throws Exception{
         Optional<VerificationToken> token = verificationTokenJPARepository.findByToken(VERIFICATION_TOKEN_USER_PRIVILEGES);
@@ -170,6 +206,11 @@ class AuthControllerTest {
         }
     }
 
+    /**
+     * Login return status unprocessable entity if data is invalid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void login_return_status_unprocessable_entity_if_data_is_invalid() throws Exception{
         LoginUserRequest loginUserRequest = LoginUserRequest.builder()
@@ -188,6 +229,11 @@ class AuthControllerTest {
         assertEquals(422, response.getStatus());
     }
 
+    /**
+     * Login return status unauthorized if user no exist.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void login_return_status_unauthorized_if_user_no_exist() throws Exception{
         LoginUserRequest loginUserRequest = LoginUserRequest.builder()
@@ -206,6 +252,11 @@ class AuthControllerTest {
         assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Login return status ok if data is valid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void login_return_status_ok_if_data_is_valid() throws Exception{
         LoginUserRequest loginUserRequest = LoginUserRequest.builder()
@@ -224,6 +275,11 @@ class AuthControllerTest {
         assertEquals(200, response.getStatus());
     }
 
+    /**
+     * Refresh tokens return status internal server error if refresh token is invalid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void refreshTokens_return_status_internal_server_error_if_refresh_token_is_invalid() throws Exception{
         RefreshTokenRequest refreshTokenRequest = RefreshTokenRequest.builder()
@@ -242,6 +298,11 @@ class AuthControllerTest {
         assertEquals(500, response.getStatus());
     }
 
+    /**
+     * Refresh tokens return status unauthorized if username not exist.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void refreshTokens_return_status_unauthorized_if_username_not_exist() throws Exception{
         RefreshTokenRequest refreshTokenRequest = RefreshTokenRequest.builder()
@@ -260,6 +321,33 @@ class AuthControllerTest {
         assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Refresh tokens return status ok and new jwt if data is valid.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void refreshTokens_return_status_ok_and_new_JWT_if_data_is_valid() throws Exception{
+        RefreshTokenRequest refreshTokenRequest = RefreshTokenRequest.builder()
+                .refreshToken(REFRESH_TOKEN_USER_PRIVILEGES)
+                .username(USERNAME_BASIC_PRIVILEGES)
+                .build();
+        String postValue = objectMapper.writeValueAsString(refreshTokenRequest);
+
+        Integer body = mockMvc.perform(post(URL_AUTH+ "refresh/token")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(postValue)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getStatus();
+        assertEquals(200, body);
+    }
+
+    /**
+     * Logout return status internal server error if refresh token is invalid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void logout_return_status_internal_server_error_if_refresh_token_is_invalid() throws Exception{
         LogoutUserRequest logoutUserRequest = LogoutUserRequest.builder()
@@ -277,6 +365,11 @@ class AuthControllerTest {
         assertEquals(500, response.getStatus());
     }
 
+    /**
+     * Logout return status ok if data is valid.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void logout_return_status_ok_if_data_is_valid() throws Exception{
         LogoutUserRequest logoutUserRequest = LogoutUserRequest.builder()
