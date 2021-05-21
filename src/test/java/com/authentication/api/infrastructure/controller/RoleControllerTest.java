@@ -173,13 +173,15 @@ class RoleControllerTest {
     @Test
     void create_role_throw_exception_if_user_has_not_add_role_privilege() throws Exception {
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
-        PrivilegeRequest privilegeRequest = new PrivilegeRequest();
-        privilegeRequest.setName("ADD_ROLE");
+        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
+                .name("ADD_ROLE")
+                .build();
         privilegeRequestList.add(privilegeRequest);
 
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setName("new role");
-        roleRequest.setPrivileges(privilegeRequestList);
+        RoleRequest roleRequest = RoleRequest.builder()
+                .name("new role")
+                .privileges(privilegeRequestList)
+                .build();
 
         String postValue = objectMapper.writeValueAsString(roleRequest);
 
@@ -235,13 +237,15 @@ class RoleControllerTest {
     @Test
     void create_role_throws_exception_if_role_already_exist() throws Exception {
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
-        PrivilegeRequest privilegeRequest = new PrivilegeRequest();
-        privilegeRequest.setName("ADD_ROLE");
+        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
+                .name("ADD_ROLE")
+                .build();
         privilegeRequestList.add(privilegeRequest);
 
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setName("ADMIN_ROLE");
-        roleRequest.setPrivileges(privilegeRequestList);
+        RoleRequest roleRequest = RoleRequest.builder()
+                .name("ADMIN_ROLE")
+                .privileges(privilegeRequestList)
+                .build();
 
         String postValue = objectMapper.writeValueAsString(roleRequest);
 
@@ -267,13 +271,15 @@ class RoleControllerTest {
     @Test
     void create_role_if_user_has_add_role_privilege_and_data_is_valid() throws Exception {
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
-        PrivilegeRequest privilegeRequest = new PrivilegeRequest();
-        privilegeRequest.setName("ADD_ROLE");
+        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
+                .name("ADD_ROLE")
+                .build();
         privilegeRequestList.add(privilegeRequest);
 
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setName("new role");
-        roleRequest.setPrivileges(privilegeRequestList);
+        RoleRequest roleRequest = RoleRequest.builder()
+                .name("new role")
+                .privileges(privilegeRequestList)
+                .build();
 
         String postValue = objectMapper.writeValueAsString(roleRequest);
 
@@ -299,13 +305,15 @@ class RoleControllerTest {
     @Test
     void update_role_throw_exception_if_user_has_not_edit_role_privilege() throws Exception{
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
-        PrivilegeRequest privilegeRequest = new PrivilegeRequest();
-        privilegeRequest.setName("ADD_ROLE");
+        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
+                .name("ADD_ROLE")
+                .build();
         privilegeRequestList.add(privilegeRequest);
 
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setName("NEW ROLE");
-        roleRequest.setPrivileges(privilegeRequestList);
+        RoleRequest roleRequest = RoleRequest.builder()
+                .name("new role")
+                .privileges(privilegeRequestList)
+                .build();
 
         String postValue = objectMapper.writeValueAsString(roleRequest);
 
@@ -331,13 +339,15 @@ class RoleControllerTest {
     @Test
     void update_role_if_user_has_edit_role_privilege_and_data_is_valid() throws Exception{
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
-        PrivilegeRequest privilegeRequest = new PrivilegeRequest();
-        privilegeRequest.setName("ADD_ROLE");
+        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
+                .name("ADD_ROLE")
+                .build();
         privilegeRequestList.add(privilegeRequest);
 
-        RoleRequest roleRequest = new RoleRequest();
-        roleRequest.setName("NEW ROLE");
-        roleRequest.setPrivileges(privilegeRequestList);
+        RoleRequest roleRequest = RoleRequest.builder()
+                .name("new role test")
+                .privileges(privilegeRequestList)
+                .build();
 
         String postValue = objectMapper.writeValueAsString(roleRequest);
 
