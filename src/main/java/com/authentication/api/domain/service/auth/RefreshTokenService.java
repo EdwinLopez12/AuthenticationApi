@@ -52,6 +52,11 @@ public class RefreshTokenService {
      * @param token the token
      */
     public void deleteRefreshToken(String token){
-        refreshTokenJpaRepository.deleteByToken(token);
+        Optional<RefreshToken> refreshTokenOptinal = refreshTokenJpaRepository.findByToken(token);
+        if(!refreshTokenOptinal.isPresent()){
+            throw new AuthenticationApiException("Invalid refresh token");
+        }else{
+            refreshTokenJpaRepository.deleteByToken(token);
+        }
     }
 }
