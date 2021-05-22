@@ -5,6 +5,7 @@ import com.authentication.api.domain.dto.RoleRequest;
 import com.authentication.api.domain.dto.RoleResponse;
 import com.authentication.api.domain.exception.ApiConflict;
 import com.authentication.api.domain.exception.ApiNotFound;
+import com.authentication.api.domain.exception.AuthenticationApiException;
 import com.authentication.api.infrastructure.persistense.entity.Privilege;
 import com.authentication.api.infrastructure.persistense.entity.Role;
 import com.authentication.api.infrastructure.persistense.jpa.PrivilegeJpaRepository;
@@ -95,8 +96,12 @@ public class RoleService {
     public String deleteRole(Long id){
         Optional<Role> deleteRole = roleJpaRepository.findById(id);
         if(deleteRole.isPresent()){
-            roleJpaRepository.deleteById(id);
-            return "Role deleted successfully";
+            if(roleJpaRepository.countUserRoles(deleteRole.get().getName()) == 0){
+                roleJpaRepository.deleteById(id);
+                return "Role deleted successfully";
+            }else{
+                throw new AuthenticationApiException("The role cannot be removed because it is used by at least one user. Try assigning a new role to the user (s) and try deleting again.");
+            }
         }else{
             throw new ApiNotFound("Role not found");
         }

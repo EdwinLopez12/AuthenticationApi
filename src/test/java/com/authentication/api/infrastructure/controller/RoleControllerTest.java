@@ -407,6 +407,26 @@ class RoleControllerTest {
     }
 
     /**
+     * Delete role throw exception if role has user.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void delete_role_throw_exception_if_role_has_user() throws Exception {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USERNAME_ADMIN_PRIVILEGES, PASSWORD_PLAIN));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(delete(URL_ROLES+"/2")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andReturn().getResponse();
+        assertEquals(500, response.getStatus());
+    }
+
+    /**
      * Delete role if user has delete role privilege.
      *
      * @throws Exception the exception
