@@ -15,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -114,6 +113,85 @@ class UserControllerTest {
                 .andReturn().getResponse();
         assertEquals(422, response.getStatus());
     }
+
+    /**
+     * Update username if data is valid.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void update_username_if_data_is_valid() throws Exception {
+        UserRequest user = UserRequest.builder()
+                .username(USER)
+                .build();
+        String postValue = objectMapper.writeValueAsString(user);
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USER, PASSWORD));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(post(URL+"/account")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(postValue))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertEquals(200, response.getStatus());
+    }
+
+    /**
+     * Update email if data is valid.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void update_email_if_data_is_valid() throws Exception {
+        UserRequest user = UserRequest.builder()
+                .email(EMAIL)
+                .build();
+        String postValue = objectMapper.writeValueAsString(user);
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USER, PASSWORD));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(post(URL+"/account")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(postValue))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertEquals(200, response.getStatus());
+    }
+
+    /**
+     * Update password if data is valid.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void update_password_if_data_is_valid() throws Exception {
+        UserRequest user = UserRequest.builder()
+                .password(PASSWORD)
+                .build();
+        String postValue = objectMapper.writeValueAsString(user);
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USER, PASSWORD));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(post(URL+"/account")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(postValue))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertEquals(200, response.getStatus());
+    }
+
 
     /**
      * Update user if data is valid.
