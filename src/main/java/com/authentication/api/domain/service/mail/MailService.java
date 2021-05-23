@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class MailService {
     private final JavaMailSender javaMailSender;
     private final MailContentBuilder mailContentBuilder;
+    private static final String URL_BASE = "http://localhost:9090/api/auth/";
 
     /**
      * Set up email data.
@@ -26,13 +27,12 @@ public class MailService {
      * @param token the token
      */
     @Async
-    public void setUpEmailData(String email, String token){
+    public void setUpEmailData(String subject, String title, String email, String body, String endPoint, String token){
         NotificationEmail notificationEmail = NotificationEmail.builder()
-                .subject("Please active your account")
+                .subject(subject)
+                .title(title)
                 .recipient(email)
-                .body("Thanks to join us. "+
-                        "Please click on the below url to active your account "+
-                        "http://localhost:9090/api/auth/account-verification/"+token)
+                .body(body+ URL_BASE + endPoint+"/"+token)
                 .build();
         sendEmail(notificationEmail);
     }
@@ -43,7 +43,7 @@ public class MailService {
             messageHelper.setFrom("apiauth@email.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
-            messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));
+            messageHelper.setText(mailContentBuilder.build(notificationEmail.getTitle() + notificationEmail.getBody()));
         };
         try{
             javaMailSender.send(messagePreparator);
