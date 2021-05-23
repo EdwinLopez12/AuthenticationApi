@@ -36,7 +36,7 @@ public class UserController {
      * @param userRequest the user request
      * @return the response entity
      */
-    @PostMapping("/account")
+    @PutMapping("/account")
     public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserRequest userRequest){
         return new ResponseEntity<>(userService.updateUser(userRequest), HttpStatus.OK);
     }

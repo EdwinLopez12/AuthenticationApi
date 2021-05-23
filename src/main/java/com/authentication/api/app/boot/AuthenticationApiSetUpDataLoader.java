@@ -33,6 +33,9 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
+        final String ADMIN_ROLE = "ADMIN_ROLE";
+        final String USER_ROLE = "USER_ROLE";
+
         // BREAD to role
         Privilege browseRole = createPrivilegeIfNotFound("BROWSE_ROLE");
         Privilege readRole = createPrivilegeIfNotFound("READ_ROLE");
@@ -50,12 +53,13 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
         List<Privilege> adminPrivileges = Arrays.asList(browseRole, readRole, editRole, addRole, deleteRole, browsePrivilege, readPrivilege);
         List<Privilege> userPrivileges = Collections.singletonList(testBrowsePrivilege);
 
-        createRoleIfNoExist("ADMIN_ROLE", adminPrivileges);
-        createRoleIfNoExist("USER_ROLE", userPrivileges);
+        createRoleIfNoExist(ADMIN_ROLE, adminPrivileges);
+        createRoleIfNoExist(USER_ROLE, userPrivileges);
         createRoleIfNoExist("TEST_ROLE", userPrivileges);
 
-        createUserIfNoFound("ADMIN", "ADMIN_ROLE");
-        createUserIfNoFound("USER", "USER_ROLE");
+        createUserIfNoFound("ADMIN", ADMIN_ROLE);
+        createUserIfNoFound("USER", USER_ROLE);
+        createUserIfNoFound("OWNER", ADMIN_ROLE);
 
     }
 
