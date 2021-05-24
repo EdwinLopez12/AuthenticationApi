@@ -6,6 +6,7 @@ import com.authentication.api.domain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ public class UserController {
      *
      * @return the response entity
      */
+    @PreAuthorize("hasAuthority('READ_USER')")
     @GetMapping("/account")
     public ResponseEntity<UserResponse> getDataUser(){
         return new ResponseEntity<>(userService.getDataUser(), HttpStatus.OK);
@@ -36,6 +38,7 @@ public class UserController {
      * @param userRequest the user request
      * @return the response entity
      */
+    @PreAuthorize("hasAuthority('EDIT_USER')")
     @PutMapping("/account")
     public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserRequest userRequest){
         return new ResponseEntity<>(userService.updateUser(userRequest), HttpStatus.OK);
