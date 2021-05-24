@@ -29,12 +29,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
+    /**
+     * Authentication manager bean authentication manager.
+     *
+     * @return the authentication manager
+     * @throws Exception the exception
+     */
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Configure the routes that don't need the authentication like swagger and auth routes.
+     * Also add a JWT token filter on every request.
+     *
+     * @param httpSecurity the http security
+     * @throws Exception the exception
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and()
@@ -58,7 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Configure global.
+     * Tell a spring boot the user details service to manage the authentication
+     * and how is the method to encode the password
      *
      * @param authenticationManagerBuilder the authentication manager builder
      * @throws Exception the exception
@@ -70,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Password encoder.
+     * Define BCrypt to password encoder
      *
      * @return the password encoder
      */

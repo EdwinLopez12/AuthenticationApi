@@ -5,6 +5,7 @@ import lombok.*;
 
 /**
  * The User response.
+ * Used to return user data.
  */
 @Getter
 @Setter

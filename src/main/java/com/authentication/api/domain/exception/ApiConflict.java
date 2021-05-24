@@ -1,7 +1,8 @@
 package com.authentication.api.domain.exception;
 
 /**
- * The Api conflict.
+ * The Api conflict exception.
+ * Used to throw an exception when data duplicated
  */
 public class ApiConflict extends RuntimeException {
     private static final long serialVersionUID = 1L;

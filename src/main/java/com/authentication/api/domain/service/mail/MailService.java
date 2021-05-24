@@ -37,6 +37,12 @@ public class MailService {
         sendEmail(notificationEmail);
     }
 
+    /**
+     * Send the email
+     *
+     * @throws AuthenticationApiException if it can't send the email
+     * @param notificationEmail the notification email
+     */
     private void sendEmail(NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);

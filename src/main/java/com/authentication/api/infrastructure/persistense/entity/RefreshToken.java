@@ -1,6 +1,10 @@
 package com.authentication.api.infrastructure.persistense.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +13,7 @@ import javax.persistence.Id;
 import java.time.Instant;
 
 /**
- * The Refresh token.
+ * The entity Refresh token.
  */
 @Entity
 @Getter

@@ -11,6 +11,10 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * The Email password reset request.
+ * Used to provide specific data to send email to reset password.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

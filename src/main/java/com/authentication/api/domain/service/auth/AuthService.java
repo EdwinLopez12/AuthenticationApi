@@ -56,9 +56,11 @@ public class AuthService {
     private static final String END_POINT_RESET_PASSWORD = "reset/password";
 
     /**
-     * Signup.
+     * Signup the user.
      *
      * @param registerUserRequest the register user request
+     * @throws ApiConflict if email already exist
+     * @throws ApiConflict if username already exist
      */
     @Transactional
     public void signup(RegisterUserRequest registerUserRequest) {
@@ -84,6 +86,12 @@ public class AuthService {
         }
     }
 
+    /**
+     * Generate the verification token for the user
+     *
+     * @param user the user model
+     * @return token
+     */
     private String generateVerificationToken(User user) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = VerificationToken.builder()
@@ -95,9 +103,10 @@ public class AuthService {
     }
 
     /**
-     * Verify account.
+     * Verify account by token.
      *
      * @param token the token
+     * @throws AuthenticationApiException if token is invalid
      */
     public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken = verificationTokenJpaRepository.findByToken(token);
@@ -107,6 +116,7 @@ public class AuthService {
     /**
      * Fetch user and enable.
      *
+     * @throws AuthenticationApiException if user can't be found
      * @param verificationToken the verification token
      */
     private void fetchUserAndEnable(VerificationToken verificationToken) {
@@ -117,7 +127,7 @@ public class AuthService {
     }
 
     /**
-     * Login authentication response.
+     * Login the user.
      *
      * @param loginUserRequest the login user request
      * @return the authentication response
@@ -137,7 +147,7 @@ public class AuthService {
     }
 
     /**
-     * Refresh token authentication response.
+     * Refresh jwt token .
      *
      * @param refreshTokenRequest the refresh token request
      * @return the authentication response
@@ -155,8 +165,9 @@ public class AuthService {
     }
 
     /**
-     * Reset password.
+     * Send email with token to reset password.
      *
+     * @throws ApiNotFound if email doesn't exist or can't be found
      * @param emailPasswordResetRequest the email password reset request
      */
     public void sendEmailResetPassword(EmailPasswordResetRequest emailPasswordResetRequest) {
@@ -176,8 +187,9 @@ public class AuthService {
     }
 
     /**
-     * Reset password verify string.
+     * Verify token to reset password.
      *
+     * @throws AuthenticationApiException if token doesn't exist or can't be found
      * @param token the token
      * @return the string
      */
@@ -191,8 +203,10 @@ public class AuthService {
     }
 
     /**
-     * Reset password string.
+     * Reset password.
      *
+     * @throws ApiConflict if passwords don't match
+     * @throws ApiNotFound if user doesn't exist or can't be found
      * @param passwordResetRequest the password reset request
      * @return the string
      */

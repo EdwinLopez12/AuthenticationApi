@@ -1,11 +1,23 @@
 package com.authentication.api.domain.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The Authentication response.
+ * Used to return the necessary data to login, refresh token and logout.
  */
+@JsonPropertyOrder({
+        "authenticationToken",
+        "refreshToken",
+        "expiresAt",
+        "username"
+})
+
 @Getter
 @Setter
 @AllArgsConstructor

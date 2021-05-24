@@ -2,6 +2,7 @@ package com.authentication.api.infrastructure.controller;
 
 import com.authentication.api.domain.service.PrivilegeService;
 import com.authentication.api.infrastructure.persistense.entity.Privilege;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class PrivilegeController {
      *
      * @return the response entity
      */
+    @ApiOperation("Get all privileges data")
     @PreAuthorize("hasAuthority('BROWSE_PRIVILEGE')")
     @GetMapping
     public ResponseEntity<List<Privilege>> getAllPrivileges(){

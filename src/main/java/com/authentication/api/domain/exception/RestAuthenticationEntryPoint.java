@@ -13,6 +13,7 @@ import java.io.IOException;
 
 /**
  * The Rest authentication entry point.
+ * Used to throw JWT exceptions and others to be caught in the exception handler
  */
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {

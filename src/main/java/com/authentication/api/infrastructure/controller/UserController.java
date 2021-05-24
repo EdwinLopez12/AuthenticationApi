@@ -3,6 +3,7 @@ package com.authentication.api.infrastructure.controller;
 import com.authentication.api.domain.dto.UserRequest;
 import com.authentication.api.domain.dto.UserResponse;
 import com.authentication.api.domain.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class UserController {
      *
      * @return the response entity
      */
+    @ApiOperation("Get user data")
     @PreAuthorize("hasAuthority('READ_USER')")
     @GetMapping("/account")
     public ResponseEntity<UserResponse> getDataUser(){
@@ -38,6 +40,7 @@ public class UserController {
      * @param userRequest the user request
      * @return the response entity
      */
+    @ApiOperation("Edit user data")
     @PreAuthorize("hasAuthority('EDIT_USER')")
     @PutMapping("/account")
     public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserRequest userRequest){

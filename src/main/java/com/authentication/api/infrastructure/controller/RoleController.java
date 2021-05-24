@@ -4,6 +4,7 @@ import com.authentication.api.domain.dto.RoleRequest;
 import com.authentication.api.domain.dto.RoleResponse;
 import com.authentication.api.domain.service.RoleService;
 import com.authentication.api.infrastructure.persistense.entity.Role;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class RoleController {
      *
      * @return the response entity
      */
+    @ApiOperation("Get all roles data")
     @PreAuthorize("hasAuthority('BROWSE_ROLE')")
     @GetMapping()
     public ResponseEntity<List<Role>> getAll(){
@@ -41,6 +43,7 @@ public class RoleController {
      * @param id the id
      * @return the role details
      */
+    @ApiOperation("Get a specific role data")
     @PreAuthorize("hasAuthority('READ_ROLE')")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Role>> getRoleDetails(@PathVariable("id") Long id){
@@ -53,6 +56,7 @@ public class RoleController {
      * @param roleRequest the role request
      * @return the response entity
      */
+    @ApiOperation("Create new role")
     @PreAuthorize("hasAuthority('ADD_ROLE')")
     @PostMapping()
     public ResponseEntity<RoleResponse> createRole(@Valid @RequestBody RoleRequest roleRequest) {
@@ -66,6 +70,7 @@ public class RoleController {
      * @param roleRequest the role request
      * @return the response entity
      */
+    @ApiOperation("Edit a specific role")
     @PreAuthorize("hasAuthority('EDIT_ROLE')")
     @PutMapping("/{id}")
     public ResponseEntity<RoleResponse> updateRole(@Valid @PathVariable("id") Long id, @RequestBody RoleRequest roleRequest){
@@ -78,6 +83,7 @@ public class RoleController {
      * @param id the id
      * @return the response entity
      */
+    @ApiOperation("Delete a specific role")
     @PreAuthorize("hasAuthority('DELETE_ROLE')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteRole(@PathVariable("id") Long id){

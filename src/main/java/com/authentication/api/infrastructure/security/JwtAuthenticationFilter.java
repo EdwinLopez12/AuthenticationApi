@@ -4,6 +4,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +35,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    /**
+     * Filter every request and validate the jwt
+     *
+     * @param httpServletRequest the httpServletRequest
+     * @param httpServletResponse the httpServletResponse
+     * @param filterChain the filterChain
+     * @throws ExpiredJwtException if jwt expired
+     * @throws UnsupportedJwtException if jwt was signed with different algorithm
+     * @throws MalformedJwtException if header does not reference a valid signature algorithm.
+     * @throws SignatureException if can't verify the RSA signature with public key. Length is not correct
+     * @throws IllegalArgumentException -
+     * @throws ServletException -
+     * @throws IOException -
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
@@ -56,6 +71,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 
+    /**
+     * Get the header from the request
+     * @param httpServletRequest the httpServletRequest
+     * @return the header with bearer token
+     */
     private String getJwtFromRequest(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader("Authorization");
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){

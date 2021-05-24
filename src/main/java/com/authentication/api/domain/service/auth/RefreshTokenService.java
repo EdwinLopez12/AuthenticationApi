@@ -22,7 +22,7 @@ public class RefreshTokenService {
     private final RefreshTokenJpaRepository refreshTokenJpaRepository;
 
     /**
-     * Generate refresh token refresh token.
+     * Generate refresh token.
      *
      * @return the refresh token
      */
@@ -37,6 +37,7 @@ public class RefreshTokenService {
     /**
      * Validate refresh token.
      *
+     * @throws AuthenticationApiException if token is invalid or can't be found
      * @param token the token
      */
     void validateRefreshToken(String token){
@@ -49,6 +50,7 @@ public class RefreshTokenService {
     /**
      * Delete refresh token.
      *
+     * @throws AuthenticationApiException if refresh token is invalid or can't be found
      * @param token the token
      */
     public void deleteRefreshToken(String token){

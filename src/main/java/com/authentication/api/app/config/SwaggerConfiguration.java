@@ -32,13 +32,18 @@ public class SwaggerConfiguration {
                 .apiInfo(getApiInfo());
     }
 
+    /**
+     * Define Swagger basic.
+     *
+     * @return Api info
+     */
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
                 .title("Authentication API with Jwt")
-                .version("1.0")
-                .description("API to learning Spring boot and Jwt")
+                .version("V.0.1-alpha")
+                .description("API to authenticate users with Spring boot and Jwt")
                 .contact(new Contact("Edwin Lopez", "http://github.com/EdwinLopez12", "edwin.lopezb.1297@email.com"))
-                .license("CopyRight")
+                .license("MIT License")
                 .build();
     }
 }

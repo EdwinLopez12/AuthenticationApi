@@ -2,7 +2,11 @@ package com.authentication.api.domain.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -10,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * The Register user request.
+ * Used to provide a specific data to signup user.
  */
 @Getter
 @Setter

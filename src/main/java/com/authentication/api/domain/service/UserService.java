@@ -36,6 +36,7 @@ public class UserService {
     /**
      * Gets current user.
      *
+     * @throws UsernameNotFoundException if user can't be found
      * @return the current user
      */
     public User getCurrentUser() {
@@ -46,7 +47,7 @@ public class UserService {
     }
 
     /**
-     * Update user user response.
+     * Update user.
      *
      * @param userRequest the user request
      * @return the user response

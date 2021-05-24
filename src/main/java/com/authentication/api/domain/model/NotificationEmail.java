@@ -4,6 +4,7 @@ import lombok.*;
 
 /**
  * The Notification email.
+ * Used to define a model for sending emails..
  */
 @Getter
 @Setter

@@ -11,7 +11,12 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.*;
+import java.security.Key;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.time.Instant;
 import java.util.Date;
@@ -34,6 +39,9 @@ public class JwtProvider {
 
     /**
      * Init.
+     * Read the jks file
+     *
+     * @throws AuthenticationApiException if can't read the jks
      */
     @PostConstruct
     public void init() {
@@ -50,7 +58,7 @@ public class JwtProvider {
      * Generate token string.
      *
      * @param authentication the authentication
-     * @return the string
+     * @return the jwt
      */
     public String generateToken(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
@@ -66,7 +74,7 @@ public class JwtProvider {
      * Generate token with username string.
      *
      * @param username the username
-     * @return the string
+     * @return the jwt
      */
     public String generateTokenWithUsername(String username){
         return Jwts.builder()
@@ -77,6 +85,12 @@ public class JwtProvider {
                 .compact();
     }
 
+    /**
+     * Get the private key from JKS
+     *
+     * @throws AuthenticationApiException if can't get the public key from jks
+     * @return private key
+     */
     private Key getPrivateKey() {
         try {
             return keyStore.getKey("apiauth", secret.toCharArray());
@@ -105,11 +119,17 @@ public class JwtProvider {
         return true;
     }
 
+    /**
+     * Get the public key from the JKS
+     *
+     * @throws AuthenticationApiException if can't read the public key
+     * @return the public key from the keystore
+     */
     private PublicKey getPublicKey(){
         try{
             return keyStore.getCertificate("apiauth").getPublicKey();
         }catch (KeyStoreException keyStoreException){
-            throw new AuthenticationApiException("Exception create while retrieving public key");
+            throw new AuthenticationApiException("Exception occurred while retrieving public key");
         }
     }
 

@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * The type Exception handler response.
+ * Used to return the errors.
  */
 @JsonPropertyOrder({
         "timestamp",

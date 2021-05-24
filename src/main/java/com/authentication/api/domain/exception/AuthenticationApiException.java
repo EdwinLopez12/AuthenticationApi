@@ -2,6 +2,7 @@ package com.authentication.api.domain.exception;
 
 /**
  * The Authentication api exception.
+ * Used to throw an exception on specific cases
  */
 public class AuthenticationApiException extends RuntimeException{
     private static final long serialVersionUID = 1L;

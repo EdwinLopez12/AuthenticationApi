@@ -16,11 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * The type Handler authentication api exception.
+ * Used to handle all the exceptions thrown by the application.
  */
 @RestControllerAdvice
 public class ExceptionHandlerAuthenticationApi {
     /**
-     * Handle authentication exception exception handler response.
+     * Handle authentication exception.
      *
      * @param request   the request
      * @param exception the exception
@@ -37,7 +38,7 @@ public class ExceptionHandlerAuthenticationApi {
     }
 
     /**
-     * Handle access denied exception exception handler response.
+     * Handle access denied exception.
      *
      * @param request the request
      * @return the exception handler response
@@ -53,7 +54,7 @@ public class ExceptionHandlerAuthenticationApi {
     }
 
     /**
-     * Handle global exception exception handler response.
+     * Handle global exception exception
      *
      * @param request   the request
      * @param exception the exception
@@ -71,7 +72,7 @@ public class ExceptionHandlerAuthenticationApi {
     }
 
     /**
-     * Handle conflict exception exception handler response.
+     * Handle conflict exception.
      *
      * @param request   the request
      * @param exception the exception
@@ -88,7 +89,7 @@ public class ExceptionHandlerAuthenticationApi {
     }
 
     /**
-     * Handle not found exception exception handler response.
+     * Handle not found exception.
      *
      * @param request   the request
      * @param exception the exception
@@ -105,7 +106,7 @@ public class ExceptionHandlerAuthenticationApi {
     }
 
     /**
-     * Handle unprocessable entity exception handler response.
+     * Handle unprocessable entity exception.
      *
      * @param request   the request
      * @param exception the exception

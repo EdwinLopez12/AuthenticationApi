@@ -39,8 +39,9 @@ public class RoleService {
     }
 
     /**
-     * Get roles details optional.
+     * Get specific role details.
      *
+     * @throws ApiNotFound if role can't be found
      * @param id the id
      * @return the optional
      */
@@ -54,8 +55,9 @@ public class RoleService {
     }
 
     /**
-     * Create role role response.
+     * Create role.
      *
+     * @throws ApiConflict if role already exist
      * @param roleRequest the role request
      * @return the role response
      */
@@ -74,7 +76,7 @@ public class RoleService {
     }
 
     /**
-     * Update role role response.
+     * Update role.
      *
      * @param id          the id
      * @param roleRequest the role request
@@ -88,8 +90,10 @@ public class RoleService {
     }
 
     /**
-     * Delete role string.
+     * Delete role.
      *
+     * @throws AuthenticationApiException if at less one user uses thr role
+     * @throws ApiNotFound if role can't be found
      * @param id the id
      * @return the string
      */
@@ -107,6 +111,12 @@ public class RoleService {
         }
     }
 
+    /**
+     * Get all privileges by the role
+     *
+     * @param roleRequest the role request
+     * @return the privilege list
+     */
     private List<Privilege> getRolePrivileges(RoleRequest roleRequest) {
         List<Privilege> privilegeList = new ArrayList<>();
         for (PrivilegeRequest privilege: roleRequest.getPrivileges() ){
