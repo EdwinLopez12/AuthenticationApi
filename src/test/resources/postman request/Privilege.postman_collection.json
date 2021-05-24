@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "595be1fc-f1bd-4bb4-a5b0-c4a6040325f5",
+		"name": "Privilege",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all privileges",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/privileges",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"privileges"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJBRE1JTiIsImlhdCI6MTYyMTgyMjY1MCwiZXhwIjoxNjIxODIzNTUwfQ.glMHlbZJMT3ue-r3YkTRWtbEQECcv9MbAJJLh4hfIgG5fzYOYnVBJi9hwErqUSdLkjiATP_aodBByiKMLLpMAn37sOBEZa_tyszKRo0VSku0WK-a0PM3c0xRXF7dPs33S-lr28DpIIUgH5g2NRhGOzSb6JCH6lFVhCZgXBGOCJRH6QR_WOwX6dgaG8uuAjlWlVJownP98tZKD3YNBGYX3-kxVnxWyw8vlr5Wd7ibZ-QaQsV9Z3nFHXMia8SyH9H9CeQDFRAonXri5jpCnxfnPDE2vQ69mWofEn4Rakg1en-ATCFhcWFS_sI0c79w25Y0pqGdVU_Y6lTqpGNGZUaVhw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
