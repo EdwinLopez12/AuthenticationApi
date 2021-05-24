@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class PrivilegeControllerTest {
 
-    private static final String USERNAME_ADMIN_PRIVILEGES = "OWNER";
+    private static final String USERNAME_ADMIN_PRIVILEGES = "ADMIN";
     private static final String PASSWORD_PLAIN = "123456";
     private static final String USERNAME_BASIC_PRIVILEGES = "USER";
     private static final String URL_PRIVILEGES = "http://localhost:9090/api/privileges";

@@ -22,7 +22,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,7 +53,6 @@ class AuthControllerTest {
     private static final String REFRESH_TOKEN_USER_PRIVILEGES = "e8818837-d76c-4c95-bc72-edc9fdcc693d-USER";
     private static final String VERIFICATION_TOKEN_USER_PRIVILEGES = "2d5eff8a-16c0-46f7-a66f-9aebe0c0388d-USER";
     // user data with admin privileges
-    private static final String USERNAME_ADMIN_PRIVILEGES = "ADMIN";
     private static final String EMAIL_ADMIN_PRIVILEGES ="ADMIN@mail.com";
 
     private static final String URL_AUTH = "http://localhost:9090/api/auth/";
