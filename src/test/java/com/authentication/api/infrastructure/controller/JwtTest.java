@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class JwtTest {
 
-    private static final String USERNAME_ADMIN_PRIVILEGES = "ADMIN";
+    private static final String USERNAME_ADMIN_PRIVILEGES = "OWNER";
     private static final String PASSWORD_PLAIN = "123456";
     private static final String URL_TEST_JWT = "http://localhost:9090/api/privileges";
 

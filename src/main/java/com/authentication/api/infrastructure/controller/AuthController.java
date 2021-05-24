@@ -1,5 +1,7 @@
 package com.authentication.api.infrastructure.controller;
 
+import com.authentication.api.domain.dto.auth.EmailPasswordResetRequest;
+import com.authentication.api.domain.dto.auth.PasswordResetRequest;
 import com.authentication.api.domain.dto.auth.*;
 import com.authentication.api.domain.service.auth.AuthService;
 import com.authentication.api.domain.service.auth.RefreshTokenService;
@@ -79,4 +81,37 @@ public class AuthController {
         return new ResponseEntity<>("Refresh token deleted successfully", HttpStatus.OK);
     }
 
+    /**
+     * Reset password response entity.
+     *
+     * @param emailPasswordResetRequest the email password reset request
+     * @return the response entity
+     */
+    @PostMapping("/reset/password")
+    public ResponseEntity<String> sendEmailResetPassword(@Valid @RequestBody EmailPasswordResetRequest emailPasswordResetRequest){
+        authService.sendEmailResetPassword(emailPasswordResetRequest);
+        return new ResponseEntity<>("Email was send", HttpStatus.OK);
+    }
+
+    /**
+     * Update password response entity.
+     *
+     * @param token the token
+     * @return the response entity
+     */
+    @GetMapping("/reset/password/verification/{token}")
+    public ResponseEntity<String> resetPasswordVerifyToken(@PathVariable(name = "token") String token){
+        return new ResponseEntity<>(authService.resetPasswordVerifyToken(token), HttpStatus.OK);
+    }
+
+    /**
+     * Update password response entity.
+     *
+     * @param passwordResetRequest the password reset request
+     * @return the response entity
+     */
+    @PutMapping("/reset/password")
+    public ResponseEntity<String> updatePassword(@Valid @RequestBody PasswordResetRequest passwordResetRequest){
+        return new ResponseEntity<>(authService.updatePassword(passwordResetRequest), HttpStatus.OK);
+    }
 }

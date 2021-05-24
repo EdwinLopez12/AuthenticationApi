@@ -33,6 +33,9 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
+        final String ADMIN_ROLE = "ADMIN_ROLE";
+        final String USER_ROLE = "USER_ROLE";
+
         // BREAD to role
         Privilege browseRole = createPrivilegeIfNotFound("BROWSE_ROLE");
         Privilege readRole = createPrivilegeIfNotFound("READ_ROLE");
@@ -43,19 +46,24 @@ public class AuthenticationApiSetUpDataLoader implements ApplicationListener<Con
         // BR--- to privilege
         Privilege browsePrivilege = createPrivilegeIfNotFound("BROWSE_PRIVILEGE");
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_ROLE");
+        // -RE-- to User
+        Privilege readUser = createPrivilegeIfNotFound("READ_USER");
+        Privilege editUser = createPrivilegeIfNotFound("EDIT_USER");
 
         // TEST roles
         Privilege testBrowsePrivilege = createPrivilegeIfNotFound("TEST_BROWSE");
 
-        List<Privilege> adminPrivileges = Arrays.asList(browseRole, readRole, editRole, addRole, deleteRole, browsePrivilege, readPrivilege);
-        List<Privilege> userPrivileges = Collections.singletonList(testBrowsePrivilege);
+        List<Privilege> adminPrivileges = Arrays.asList(browseRole, readRole, editRole, addRole, deleteRole, browsePrivilege, readPrivilege, readUser, editUser);
+        List<Privilege> userPrivileges = Arrays.asList(readUser, editUser);
+        List<Privilege> testPrivileges = Collections.singletonList(testBrowsePrivilege);
 
-        createRoleIfNoExist("ADMIN_ROLE", adminPrivileges);
-        createRoleIfNoExist("USER_ROLE", userPrivileges);
-        createRoleIfNoExist("TEST_ROLE", userPrivileges);
+        createRoleIfNoExist(ADMIN_ROLE, adminPrivileges);
+        createRoleIfNoExist(USER_ROLE, userPrivileges);
+        createRoleIfNoExist("TEST_ROLE", testPrivileges);
 
-        createUserIfNoFound("ADMIN", "ADMIN_ROLE");
-        createUserIfNoFound("USER", "USER_ROLE");
+        createUserIfNoFound("ADMIN", ADMIN_ROLE);
+        createUserIfNoFound("USER", USER_ROLE);
+        createUserIfNoFound("OWNER", ADMIN_ROLE);
 
     }
 

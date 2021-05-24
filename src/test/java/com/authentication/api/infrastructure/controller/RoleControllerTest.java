@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class RoleControllerTest {
 
-    private static final String USERNAME_ADMIN_PRIVILEGES = "ADMIN";
+    private static final String USERNAME_ADMIN_PRIVILEGES = "OWNER";
     private static final String USERNAME_BASIC_PRIVILEGES = "USER";
     private static final String PASSWORD_PLAIN = "123456";
     private static final String URL_ROLES = "http://localhost:9090/api/roles";
@@ -404,6 +404,26 @@ class RoleControllerTest {
                 .andExpect(status().isNotFound())
                 .andReturn().getResponse();
         assertEquals(404, response.getStatus());
+    }
+
+    /**
+     * Delete role throw exception if role has user.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void delete_role_throw_exception_if_role_has_user() throws Exception {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USERNAME_ADMIN_PRIVILEGES, PASSWORD_PLAIN));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(delete(URL_ROLES+"/2")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andReturn().getResponse();
+        assertEquals(500, response.getStatus());
     }
 
     /**
