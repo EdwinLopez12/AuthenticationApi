@@ -3,6 +3,7 @@ package com.authentication.api.infrastructure.persistense.jpa;
 import com.authentication.api.infrastructure.persistense.entity.PasswordReset;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -25,5 +26,6 @@ public interface PasswordResetJpaRepository extends JpaRepository<PasswordReset,
      *
      * @param email the email
      */
+    @Transactional
     void deleteByEmail(String email);
 }
