@@ -1,11 +1,6 @@
 package com.authentication.api.domain.service.auth;
 
-import com.authentication.api.domain.dto.auth.EmailPasswordResetRequest;
-import com.authentication.api.domain.dto.auth.PasswordResetRequest;
-import com.authentication.api.domain.dto.auth.AuthenticationResponse;
-import com.authentication.api.domain.dto.auth.LoginUserRequest;
-import com.authentication.api.domain.dto.auth.RefreshTokenRequest;
-import com.authentication.api.domain.dto.auth.RegisterUserRequest;
+import com.authentication.api.domain.dto.auth.*;
 import com.authentication.api.domain.exception.ApiConflict;
 import com.authentication.api.domain.exception.ApiNotFound;
 import com.authentication.api.domain.exception.AuthenticationApiException;
@@ -21,7 +16,6 @@ import com.authentication.api.infrastructure.persistense.jpa.VerificationTokenJp
 import com.authentication.api.infrastructure.persistense.mapper.UserMapper;
 import com.authentication.api.infrastructure.security.JwtProvider;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
