@@ -21,6 +21,7 @@ import com.authentication.api.infrastructure.persistense.jpa.VerificationTokenJp
 import com.authentication.api.infrastructure.persistense.mapper.UserMapper;
 import com.authentication.api.infrastructure.security.JwtProvider;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -206,7 +207,7 @@ public class AuthService {
         if(userOptional.isPresent()){
             if(passwordResetRequest.getPassword().equals(passwordResetRequest.getPasswordVerify())){
                 passwordResetRequest.setPassword(passwordEncoder.encode(passwordResetRequest.getPassword()));
-                User user = userMapper.toEntity(userOptional.get().getId(), userOptional.get().getUsername(), passwordResetRequest);
+                User user = userMapper.toEntity(userOptional.get().getId(), userOptional.get().getUsername(), userOptional.get().getIsEnable(), userOptional.get().getRoles(), passwordResetRequest);
                 userJpaRepository.save(user);
                 passwordResetJpaRepository.deleteByEmail(passwordResetRequest.getEmail());
                 return "Password reset successfully";
