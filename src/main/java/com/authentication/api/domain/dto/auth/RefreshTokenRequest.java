@@ -20,5 +20,6 @@ public class RefreshTokenRequest {
     @NotBlank(message = "Refresh Token is required")
     private String refreshToken;
     @JsonProperty
+    @NotBlank(message = "Username is required")
     private String username;
 }
