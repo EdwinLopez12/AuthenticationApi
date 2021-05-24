@@ -2,9 +2,12 @@ package com.authentication.api.infrastructure.persistense.mapper;
 
 import com.authentication.api.domain.dto.UserResponse;
 import com.authentication.api.domain.dto.auth.PasswordResetRequest;
+import com.authentication.api.infrastructure.persistense.entity.Role;
 import com.authentication.api.infrastructure.persistense.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * The User mapper.
@@ -31,14 +34,18 @@ public class UserMapper {
      *
      * @param id                   the id
      * @param username             the username
+     * @param isEnable             the is enable
+     * @param roles                the roles
      * @param passwordResetRequest the password reset request
      * @return the user
      */
-    public User toEntity(Long id, String username, PasswordResetRequest passwordResetRequest) {
+    public User toEntity(Long id, String username, Boolean isEnable, List<Role> roles, PasswordResetRequest passwordResetRequest) {
         return User.builder()
                 .id(id)
                 .username(username)
                 .email(passwordResetRequest.getEmail())
+                .isEnable(isEnable)
+                .roles(roles)
                 .password(passwordResetRequest.getPassword())
                 .build();
     }
