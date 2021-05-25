@@ -66,7 +66,7 @@ If you have something in mind, make a Pull Requests.
 
 ## Versions📌
 
-We use [SemVer](http://semver.org/) for versions. For all available versions, look at the [tags in this repository](https://github.com/EdwinLopez12/authentication-api/tags).
+We use [SemVer](http://semver.org/) for versions. For all available versions, look at the [tags in this repository](https://github.com/EdwinLopez12/AuthenticationApi/tags).
 
 ## Authors ✒️
 
@@ -75,7 +75,7 @@ We use [SemVer](http://semver.org/) for versions. For all available versions, lo
 
 ## License 📄
 
-This project is under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is under the MIT License - see the [LICENSE.md](https://github.com/EdwinLopez12/AuthenticationApi/blob/main/LICENSE) file for details
 
 ---
 ⌨️ with ❤️ by [Edwin Lopez](https://github.com/EdwinLopez12/) 😊
