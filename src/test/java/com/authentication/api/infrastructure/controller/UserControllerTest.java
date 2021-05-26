@@ -1,9 +1,12 @@
 package com.authentication.api.infrastructure.controller;
 
 import com.authentication.api.domain.dto.user.UserRequest;
+import com.authentication.api.domain.dto.user.UserRolesListRequest;
+import com.authentication.api.domain.dto.user.UserRolesRequest;
 import com.authentication.api.infrastructure.security.JwtAuthenticationFilter;
 import com.authentication.api.infrastructure.security.JwtProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -28,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * The User controller test.
  */
+@Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerTest {
@@ -212,6 +219,103 @@ class UserControllerTest {
         String token = jwtProvider.generateToken(authenticate);
 
         MockHttpServletResponse response = mockMvc.perform(put(URL+"/account")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(postValue))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertEquals(200, response.getStatus());
+    }
+
+    /**
+     * Update user roles throw not found exception if user not found.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void update_user_roles_throw_not_found_exception_if_user_not_found() throws Exception {
+        List<UserRolesListRequest> userRolesListRequestList = new ArrayList<>();
+        UserRolesListRequest userRolesListRequest = UserRolesListRequest.builder()
+                .name("ADD_ROLE")
+                .build();
+        userRolesListRequestList.add(userRolesListRequest);
+
+        UserRolesRequest userRolesRequest = UserRolesRequest.builder()
+                .roles(userRolesListRequestList)
+                .build();
+
+        String postValue = objectMapper.writeValueAsString(userRolesRequest);
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USER, PASSWORD));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(put(URL+"/roles/10")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(postValue))
+                .andExpect(status().isNotFound())
+                .andReturn().getResponse();
+        assertEquals(404, response.getStatus());
+    }
+
+    /**
+     * Update user roles throw unprocessable entity exception if data is invalid.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void update_user_roles_throw_unprocessable_entity_exception_if_data_is_invalid() throws Exception {
+        List<UserRolesListRequest> userRolesListRequestList = new ArrayList<>();
+        UserRolesListRequest userRolesListRequest = UserRolesListRequest.builder()
+                .build();
+        userRolesListRequestList.add(userRolesListRequest);
+
+        UserRolesRequest userRolesRequest = UserRolesRequest.builder()
+                .roles(userRolesListRequestList)
+                .build();
+        String postValue = objectMapper.writeValueAsString(userRolesRequest);
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USER, PASSWORD));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(put(URL+"/roles/2")
+                .header("Authorization", "Bearer "+token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(postValue))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn().getResponse();
+        assertEquals(422, response.getStatus());
+    }
+
+    /**
+     * Update user roles if data is valid.
+     *
+     * @throws Exception the exception
+     */
+    @Test
+    void update_user_roles_if_data_is_valid() throws Exception {
+        List<UserRolesListRequest> userRolesListRequestList = new ArrayList<>();
+        UserRolesListRequest userRolesListRequest = UserRolesListRequest.builder()
+                .name("ADMIN_ROLE")
+                .build();
+        userRolesListRequestList.add(userRolesListRequest);
+
+        UserRolesRequest user = UserRolesRequest.builder()
+                .roles(userRolesListRequestList)
+                .build();
+
+        String postValue = objectMapper.writeValueAsString(user);
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(USER, PASSWORD));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+
+        MockHttpServletResponse response = mockMvc.perform(put(URL+"/roles/2")
                 .header("Authorization", "Bearer "+token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

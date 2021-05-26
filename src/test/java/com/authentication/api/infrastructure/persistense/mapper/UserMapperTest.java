@@ -2,6 +2,7 @@ package com.authentication.api.infrastructure.persistense.mapper;
 
 import com.authentication.api.domain.dto.user.UserResponse;
 import com.authentication.api.domain.dto.auth.PasswordResetRequest;
+import com.authentication.api.domain.dto.user.UserRolesResponse;
 import com.authentication.api.infrastructure.persistense.entity.Privilege;
 import com.authentication.api.infrastructure.persistense.entity.Role;
 import com.authentication.api.infrastructure.persistense.entity.User;
@@ -34,6 +35,37 @@ class UserMapperTest {
         UserResponse dto = userMapper.toDto(user);
         assertEquals(user.getUsername(), dto.getUsername());
         assertEquals(user.getEmail(), dto.getEmail());
+    }
+
+    /**
+     * To dto roles response.
+     */
+    @Test
+    void toDtoRolesResponse(){
+        List<Privilege> privilegeList = new ArrayList<>();
+        List<Role> roleList = new ArrayList<>();
+        Privilege privilege = new Privilege();
+        privilege.setId(1L);
+        privilege.setName("ADD_USERS");
+        privilegeList.add(privilege);
+
+        Role role = Role.builder()
+                .id(1L)
+                .name("ADMIN")
+                .privileges(privilegeList)
+                .build();
+        roleList.add(role);
+
+        User user = User.builder()
+                .username("User mapper test")
+                .email("userMapperTest@email.com")
+                .roles(roleList)
+                .build();
+
+        UserRolesResponse dto = userMapper.toDtoRolesResponse(user);
+        assertEquals(user.getUsername(), dto.getUsername());
+        assertEquals(user.getEmail(), dto.getEmail());
+        assertEquals(user.getRoles(), dto.getRoles());
     }
 
     /**
