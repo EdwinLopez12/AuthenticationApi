@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * The entity Privilege.
@@ -21,6 +22,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "tb_privilege")
 public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
