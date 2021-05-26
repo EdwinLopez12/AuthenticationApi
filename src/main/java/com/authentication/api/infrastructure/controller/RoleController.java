@@ -1,7 +1,7 @@
 package com.authentication.api.infrastructure.controller;
 
-import com.authentication.api.domain.dto.RoleRequest;
-import com.authentication.api.domain.dto.RoleResponse;
+import com.authentication.api.domain.dto.role.RoleRequest;
+import com.authentication.api.domain.dto.role.RoleResponse;
 import com.authentication.api.domain.service.RoleService;
 import com.authentication.api.infrastructure.persistense.entity.Role;
 import io.swagger.annotations.ApiOperation;

@@ -1,8 +1,8 @@
 package com.authentication.api.domain.service;
 
-import com.authentication.api.domain.dto.PrivilegeRequest;
-import com.authentication.api.domain.dto.RoleRequest;
-import com.authentication.api.domain.dto.RoleResponse;
+import com.authentication.api.domain.dto.role.PrivilegeRequest;
+import com.authentication.api.domain.dto.role.RoleRequest;
+import com.authentication.api.domain.dto.role.RoleResponse;
 import com.authentication.api.domain.exception.ApiConflict;
 import com.authentication.api.domain.exception.ApiNotFound;
 import com.authentication.api.domain.exception.AuthenticationApiException;

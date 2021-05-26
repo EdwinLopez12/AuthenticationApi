@@ -1,6 +1,6 @@
 package com.authentication.api.infrastructure.persistense.mapper;
 
-import com.authentication.api.domain.dto.UserResponse;
+import com.authentication.api.domain.dto.user.UserResponse;
 import com.authentication.api.domain.dto.auth.PasswordResetRequest;
 import com.authentication.api.infrastructure.persistense.entity.Privilege;
 import com.authentication.api.infrastructure.persistense.entity.Role;

@@ -1,7 +1,7 @@
 package com.authentication.api.infrastructure.controller;
 
-import com.authentication.api.domain.dto.PrivilegeRequest;
-import com.authentication.api.domain.dto.RoleRequest;
+import com.authentication.api.domain.dto.role.PrivilegeRequest;
+import com.authentication.api.domain.dto.role.RoleRequest;
 import com.authentication.api.infrastructure.security.JwtAuthenticationFilter;
 import com.authentication.api.infrastructure.security.JwtProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.authentication.api.domain.dto;
+package com.authentication.api.domain.dto.role;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
