@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * The User roles list request.
+ * Used to provide specific data to User (update user role needs a list of roles).
  */
 @Getter
 @Setter

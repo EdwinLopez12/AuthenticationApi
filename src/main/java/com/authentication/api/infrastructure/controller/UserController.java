@@ -59,7 +59,7 @@ public class UserController {
     @ApiOperation("Edit user roles")
     @PreAuthorize("hasAuthority('EDIT_USER')")
     @PutMapping("/roles/{id}")
-    public ResponseEntity<UserRolesResponse> updateUserRoles(@Valid @PathVariable(name = "id") Long id, @RequestBody UserRolesRequest userRolesRequest){
+    public ResponseEntity<UserRolesResponse> updateUserRoles(@Valid @PathVariable(name = "id") Long id, @Valid @RequestBody UserRolesRequest userRolesRequest){
         return new ResponseEntity<>(userService.updateUserRoles(id, userRolesRequest), HttpStatus.OK);
     }
 }

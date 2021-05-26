@@ -73,7 +73,7 @@ public class RoleController {
     @ApiOperation("Edit a specific role")
     @PreAuthorize("hasAuthority('EDIT_ROLE')")
     @PutMapping("/{id}")
-    public ResponseEntity<RoleResponse> updateRole(@Valid @PathVariable("id") Long id, @RequestBody RoleRequest roleRequest){
+    public ResponseEntity<RoleResponse> updateRole(@Valid @PathVariable("id") Long id, @Valid @RequestBody RoleRequest roleRequest){
         return new ResponseEntity<>(roleService.updateRole(id, roleRequest), HttpStatus.OK);
     }
 
