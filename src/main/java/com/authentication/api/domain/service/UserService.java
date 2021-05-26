@@ -79,7 +79,7 @@ public class UserService {
      * @return the user roles response
      */
     public UserRolesResponse updateUserRoles(Long id, UserRolesRequest userRolesRequest) {
-        User user = userJpaRepository.findById(id).orElseThrow(()-> new ApiNotFound("User no found"));
+        User user = userJpaRepository.findById(id).orElseThrow(()-> new ApiNotFound("User not found"));
         List<Role> roleList = getRoles(userRolesRequest);
         user.setRoles(roleList);
         userJpaRepository.save(user);

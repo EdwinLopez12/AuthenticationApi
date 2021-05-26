@@ -83,8 +83,10 @@ public class RoleService {
      * @return the role response
      */
     public RoleResponse updateRole(Long id, RoleRequest roleRequest){
+        Role role = roleJpaRepository.findById(id).orElseThrow(() -> new ApiNotFound("Role not found"));
         List<Privilege> privilegeList = getRolePrivileges(roleRequest);
-        Role role = roleMapper.toEntity(id, roleRequest, privilegeList);
+        if(roleRequest.getName() != null) role.setName(roleRequest.getName());
+        if(roleRequest.getPrivileges() != null) role.setPrivileges(privilegeList);
         roleJpaRepository.save(role);
         return roleMapper.toDto(role);
     }

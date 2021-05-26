@@ -342,13 +342,18 @@ class RoleControllerTest {
     @Test
     void update_role_if_user_has_edit_role_privilege_and_data_is_valid() throws Exception{
         List<PrivilegeRequest> privilegeRequestList = new ArrayList<>();
-        PrivilegeRequest privilegeRequest = PrivilegeRequest.builder()
-                .name("ADD_ROLE")
+        PrivilegeRequest editUser = PrivilegeRequest.builder()
+                .name("EDIT_USER")
                 .build();
-        privilegeRequestList.add(privilegeRequest);
+        PrivilegeRequest readUser = PrivilegeRequest.builder()
+                .name("READ_USER")
+                .build();
+
+        privilegeRequestList.add(readUser);
+        privilegeRequestList.add(editUser);
 
         RoleRequest roleRequest = RoleRequest.builder()
-                .name("new role test")
+                .name("USER_ROLE_EDIT")
                 .privileges(privilegeRequestList)
                 .build();
 
@@ -358,7 +363,7 @@ class RoleControllerTest {
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
 
-        MockHttpServletResponse response = mockMvc.perform(put(URL_ROLES+"/3")
+        MockHttpServletResponse response = mockMvc.perform(put(URL_ROLES+"/2")
                 .header("Authorization", "Bearer "+token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
