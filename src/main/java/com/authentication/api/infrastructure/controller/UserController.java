@@ -1,7 +1,9 @@
 package com.authentication.api.infrastructure.controller;
 
-import com.authentication.api.domain.dto.UserRequest;
-import com.authentication.api.domain.dto.UserResponse;
+import com.authentication.api.domain.dto.user.UserRequest;
+import com.authentication.api.domain.dto.user.UserResponse;
+import com.authentication.api.domain.dto.user.UserRolesRequest;
+import com.authentication.api.domain.dto.user.UserRolesResponse;
 import com.authentication.api.domain.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -45,5 +47,19 @@ public class UserController {
     @PutMapping("/account")
     public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserRequest userRequest){
         return new ResponseEntity<>(userService.updateUser(userRequest), HttpStatus.OK);
+    }
+
+    /**
+     * Update user roles response entity.
+     *
+     * @param id               the id
+     * @param userRolesRequest the user roles request
+     * @return the response entity
+     */
+    @ApiOperation("Edit user roles")
+    @PreAuthorize("hasAuthority('EDIT_USER')")
+    @PutMapping("/roles/{id}")
+    public ResponseEntity<UserRolesResponse> updateUserRoles(@Valid @PathVariable(name = "id") Long id, @RequestBody UserRolesRequest userRolesRequest){
+        return new ResponseEntity<>(userService.updateUserRoles(id, userRolesRequest), HttpStatus.OK);
     }
 }

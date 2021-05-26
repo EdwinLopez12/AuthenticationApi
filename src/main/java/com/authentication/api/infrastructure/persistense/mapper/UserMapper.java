@@ -1,7 +1,8 @@
 package com.authentication.api.infrastructure.persistense.mapper;
 
-import com.authentication.api.domain.dto.UserResponse;
+import com.authentication.api.domain.dto.user.UserResponse;
 import com.authentication.api.domain.dto.auth.PasswordResetRequest;
+import com.authentication.api.domain.dto.user.UserRolesResponse;
 import com.authentication.api.infrastructure.persistense.entity.Role;
 import com.authentication.api.infrastructure.persistense.entity.User;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,20 @@ public class UserMapper {
     }
 
     /**
+     * To dto user roles response.
+     *
+     * @param user the user
+     * @return the user roles response
+     */
+    public UserRolesResponse toDtoRolesResponse(User user) {
+        return UserRolesResponse.builder()
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .roles(user.getRoles())
+                .build();
+    }
+
+    /**
      * To entity user.
      *
      * @param id                   the id
@@ -49,4 +64,6 @@ public class UserMapper {
                 .password(passwordResetRequest.getPassword())
                 .build();
     }
+
+
 }
