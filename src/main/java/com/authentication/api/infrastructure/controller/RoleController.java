@@ -1,7 +1,7 @@
 package com.authentication.api.infrastructure.controller;
 
-import com.authentication.api.domain.dto.RoleRequest;
-import com.authentication.api.domain.dto.RoleResponse;
+import com.authentication.api.domain.dto.role.RoleRequest;
+import com.authentication.api.domain.dto.role.RoleResponse;
 import com.authentication.api.domain.service.RoleService;
 import com.authentication.api.infrastructure.persistense.entity.Role;
 import io.swagger.annotations.ApiOperation;
@@ -73,7 +73,7 @@ public class RoleController {
     @ApiOperation("Edit a specific role")
     @PreAuthorize("hasAuthority('EDIT_ROLE')")
     @PutMapping("/{id}")
-    public ResponseEntity<RoleResponse> updateRole(@Valid @PathVariable("id") Long id, @RequestBody RoleRequest roleRequest){
+    public ResponseEntity<RoleResponse> updateRole(@Valid @PathVariable("id") Long id, @Valid @RequestBody RoleRequest roleRequest){
         return new ResponseEntity<>(roleService.updateRole(id, roleRequest), HttpStatus.OK);
     }
 
