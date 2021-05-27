@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class MailService {
     private final JavaMailSender javaMailSender;
     private final MailContentBuilder mailContentBuilder;
-    private static final String URL_BASE = "http://localhost:9090/api/auth/";
+    private static final String URL_BASE = "https://edwinlopez12-auth-api.herokuapp.com/api/auth/";
 
     /**
      * Set up email data.
