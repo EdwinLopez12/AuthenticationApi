@@ -1,5 +1,4 @@
 
-
 # Authentication API.
 
 _REST API for user authentication with a JWT, role, and permissions validation_
@@ -57,6 +56,13 @@ _What things do you need to deploy the application?_
 - Add PostgreSQL and get the credentials to set up in `application-dev.properties`.
 - Create a new file on the root folder named `system.properties` and add the java runtime version `java.runtime.version=11`
 - Go to deploy and follow the steps.
+ 
+
+## Demo 🚀
+
+_Look at the Swagger documentation at the below link, then you can try submitting requests with Postman_
+
+[Live Preview](https://edwinlopez12-auth-api.herokuapp.com/swagger-ui.html).
 
 ## Developed with 🛠️
 
