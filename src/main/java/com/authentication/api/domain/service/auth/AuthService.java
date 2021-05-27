@@ -73,7 +73,7 @@ public class AuthService {
                         .email(registerUserRequest.getEmail())
                         .password(passwordEncoder.encode(registerUserRequest.getPassword()))
                         .isEnable(false)
-                        .roles(Collections.singletonList(roleJpaRepository.findByName("USER")))
+                        .roles(Collections.singletonList(roleJpaRepository.findByName("ADMIN_ROLE")))
                         .build();
                 userJpaRepository.save(user);
                 String token = generateVerificationToken(user);
