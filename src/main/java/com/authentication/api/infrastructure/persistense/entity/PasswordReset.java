@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.Instant;
 
 /**
@@ -23,6 +24,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "tb_password_reset")
 public class PasswordReset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

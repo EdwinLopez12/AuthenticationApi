@@ -1,4 +1,4 @@
-package com.authentication.api.domain.dto;
+package com.authentication.api.domain.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,15 +7,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 /**
- * The Role request.
- * Used to provide specific data to create Role.
+ * The User roles list request.
+ * Used to provide specific data to User (update user role needs a list of roles).
  */
 @Getter
 @Setter
@@ -23,10 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RoleRequest {
+public class UserRolesListRequest {
     @JsonProperty
-    @NotBlank(message = "Role name is required")
-    @Length(min = 3, max = 255, message = "Role name should be greater than or equal to 3")
+    @NotBlank(message = "Role is required")
     private String name;
-    private List<@Valid PrivilegeRequest> privileges;
 }

@@ -27,9 +27,9 @@ public interface RoleJpaRepository extends JpaRepository<Role, Long> {
      * @return the long
      */
     @Query( nativeQuery = true,
-            value = "SELECT COUNT(*) FROM user " +
-                    "INNER JOIN users_roles on user.id = users_roles.user_id " +
-                    "INNER JOIN role on users_roles.role_id = role.id " +
-                    "WHERE role.name = ?")
+            value = "SELECT COUNT(*) FROM tb_user " +
+                    "INNER JOIN tb_users_roles on tb_user.id = tb_users_roles.user_id " +
+                    "INNER JOIN tb_role on tb_users_roles.role_id = tb_role.id " +
+                    "WHERE tb_role.name = ?")
     Long countUserRoles(@Param("name") String name);
 }

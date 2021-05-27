@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
- * The type Mail service.
+ * The Mail service.
  */
 @Service
 @AllArgsConstructor
@@ -32,7 +32,8 @@ public class MailService {
                 .subject(subject)
                 .title(title)
                 .recipient(email)
-                .body(body+ URL_BASE + endPoint+"/"+token)
+                .body(body)
+                .url(URL_BASE + endPoint+"/"+token)
                 .build();
         sendEmail(notificationEmail);
     }
@@ -46,10 +47,10 @@ public class MailService {
     private void sendEmail(NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom("apiauth@email.com");
+            messageHelper.setFrom("authenticationapi0@gmail.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
-            messageHelper.setText(mailContentBuilder.build(notificationEmail.getTitle() + notificationEmail.getBody()));
+            messageHelper.setText(mailContentBuilder.build(notificationEmail.getTitle(), notificationEmail.getBody(), notificationEmail.getUrl()));
         };
         try{
             javaMailSender.send(messagePreparator);

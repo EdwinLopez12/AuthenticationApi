@@ -40,7 +40,7 @@ public class SwaggerConfiguration {
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
                 .title("Authentication API with Jwt")
-                .version("V.0.1-alpha")
+                .version("V.0.2-alpha")
                 .description("API to authenticate users with Spring boot and Jwt")
                 .contact(new Contact("Edwin Lopez", "http://github.com/EdwinLopez12", "edwin.lopezb.1297@email.com"))
                 .license("MIT License")
