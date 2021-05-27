@@ -19,9 +19,11 @@ public class MailContentBuilder {
      * @param message the message
      * @return the string
      */
-    String build(String message){
+    String build(String title, String message, String url){
         Context context = new Context();
+        context.setVariable("title", title);
         context.setVariable("message", message);
+        context.setVariable("url", url);
         return templateEngine.process("mailTemplate", context);
     }
 }
