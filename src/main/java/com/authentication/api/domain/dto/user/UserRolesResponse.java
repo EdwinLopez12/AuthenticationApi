@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * The User roles response.
+ * Used to return the user role data
  */
 @Getter
 @Setter
