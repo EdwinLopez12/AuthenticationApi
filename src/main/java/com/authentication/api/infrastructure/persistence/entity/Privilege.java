@@ -1,4 +1,4 @@
-package com.authentication.api.infrastructure.persistense.entity;
+package com.authentication.api.infrastructure.persistence.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.Instant;
 
 /**
- * The entity Password reset.
- *
+ * The entity Privilege.
  */
 @Entity
 @Getter
@@ -24,15 +22,11 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tb_password_reset")
-public class PasswordReset {
+@Table(name = "tb_privilege")
+public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String email;
-    @Column(nullable = false)
-    private String token;
-    @Column(nullable = false)
-    private Instant date;
+    @Column(unique = true, nullable = false)
+    private String name;
 }

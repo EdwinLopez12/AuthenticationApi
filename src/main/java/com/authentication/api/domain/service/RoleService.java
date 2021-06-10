@@ -6,11 +6,11 @@ import com.authentication.api.domain.dto.role.RoleResponse;
 import com.authentication.api.domain.exception.ApiConflict;
 import com.authentication.api.domain.exception.ApiNotFound;
 import com.authentication.api.domain.exception.AuthenticationApiException;
-import com.authentication.api.infrastructure.persistense.entity.Privilege;
-import com.authentication.api.infrastructure.persistense.entity.Role;
-import com.authentication.api.infrastructure.persistense.jpa.PrivilegeJpaRepository;
-import com.authentication.api.infrastructure.persistense.jpa.RoleJpaRepository;
-import com.authentication.api.infrastructure.persistense.mapper.RoleMapper;
+import com.authentication.api.infrastructure.persistence.entity.Privilege;
+import com.authentication.api.infrastructure.persistence.entity.Role;
+import com.authentication.api.infrastructure.persistence.jpa.PrivilegeJpaRepository;
+import com.authentication.api.infrastructure.persistence.jpa.RoleJpaRepository;
+import com.authentication.api.infrastructure.persistence.mapper.RoleMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

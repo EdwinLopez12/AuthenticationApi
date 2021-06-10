@@ -1,4 +1,4 @@
-package com.authentication.api.infrastructure.persistense.entity;
+package com.authentication.api.infrastructure.persistence.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

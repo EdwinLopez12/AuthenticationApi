@@ -1,10 +1,10 @@
-package com.authentication.api.infrastructure.persistense.mapper;
+package com.authentication.api.infrastructure.persistence.mapper;
 
 import com.authentication.api.domain.dto.role.PrivilegeRequest;
 import com.authentication.api.domain.dto.role.RoleRequest;
 import com.authentication.api.domain.dto.role.RoleResponse;
-import com.authentication.api.infrastructure.persistense.entity.Privilege;
-import com.authentication.api.infrastructure.persistense.entity.Role;
+import com.authentication.api.infrastructure.persistence.entity.Privilege;
+import com.authentication.api.infrastructure.persistence.entity.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

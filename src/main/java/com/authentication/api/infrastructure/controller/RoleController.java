@@ -3,7 +3,7 @@ package com.authentication.api.infrastructure.controller;
 import com.authentication.api.domain.dto.role.RoleRequest;
 import com.authentication.api.domain.dto.role.RoleResponse;
 import com.authentication.api.domain.service.RoleService;
-import com.authentication.api.infrastructure.persistense.entity.Role;
+import com.authentication.api.infrastructure.persistence.entity.Role;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

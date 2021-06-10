@@ -1,7 +1,7 @@
 package com.authentication.api.app.boot;
 
-import com.authentication.api.infrastructure.persistense.entity.*;
-import com.authentication.api.infrastructure.persistense.jpa.*;
+import com.authentication.api.infrastructure.persistence.entity.*;
+import com.authentication.api.infrastructure.persistence.jpa.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

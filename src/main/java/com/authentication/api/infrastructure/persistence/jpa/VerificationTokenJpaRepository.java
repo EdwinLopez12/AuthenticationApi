@@ -1,6 +1,6 @@
-package com.authentication.api.infrastructure.persistense.jpa;
+package com.authentication.api.infrastructure.persistence.jpa;
 
-import com.authentication.api.infrastructure.persistense.entity.VerificationToken;
+import com.authentication.api.infrastructure.persistence.entity.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

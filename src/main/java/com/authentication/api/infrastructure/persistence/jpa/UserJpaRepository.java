@@ -1,6 +1,6 @@
-package com.authentication.api.infrastructure.persistense.jpa;
+package com.authentication.api.infrastructure.persistence.jpa;
 
-import com.authentication.api.infrastructure.persistense.entity.User;
+import com.authentication.api.infrastructure.persistence.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

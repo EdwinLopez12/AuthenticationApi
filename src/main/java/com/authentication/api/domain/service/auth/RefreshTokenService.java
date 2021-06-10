@@ -1,8 +1,8 @@
 package com.authentication.api.domain.service.auth;
 
 import com.authentication.api.domain.exception.AuthenticationApiException;
-import com.authentication.api.infrastructure.persistense.entity.RefreshToken;
-import com.authentication.api.infrastructure.persistense.jpa.RefreshTokenJpaRepository;
+import com.authentication.api.infrastructure.persistence.entity.RefreshToken;
+import com.authentication.api.infrastructure.persistence.jpa.RefreshTokenJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

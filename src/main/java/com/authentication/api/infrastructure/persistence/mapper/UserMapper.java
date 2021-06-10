@@ -1,10 +1,10 @@
-package com.authentication.api.infrastructure.persistense.mapper;
+package com.authentication.api.infrastructure.persistence.mapper;
 
 import com.authentication.api.domain.dto.user.UserResponse;
 import com.authentication.api.domain.dto.auth.PasswordResetRequest;
 import com.authentication.api.domain.dto.user.UserRolesResponse;
-import com.authentication.api.infrastructure.persistense.entity.Role;
-import com.authentication.api.infrastructure.persistense.entity.User;
+import com.authentication.api.infrastructure.persistence.entity.Role;
+import com.authentication.api.infrastructure.persistence.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

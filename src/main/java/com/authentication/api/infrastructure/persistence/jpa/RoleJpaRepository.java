@@ -1,6 +1,6 @@
-package com.authentication.api.infrastructure.persistense.jpa;
+package com.authentication.api.infrastructure.persistence.jpa;
 
-import com.authentication.api.infrastructure.persistense.entity.Role;
+import com.authentication.api.infrastructure.persistence.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

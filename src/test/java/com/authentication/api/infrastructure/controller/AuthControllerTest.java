@@ -1,10 +1,10 @@
 package com.authentication.api.infrastructure.controller;
 
 import com.authentication.api.domain.dto.auth.*;
-import com.authentication.api.infrastructure.persistense.entity.PasswordReset;
-import com.authentication.api.infrastructure.persistense.entity.VerificationToken;
-import com.authentication.api.infrastructure.persistense.jpa.PasswordResetJpaRepository;
-import com.authentication.api.infrastructure.persistense.jpa.VerificationTokenJpaRepository;
+import com.authentication.api.infrastructure.persistence.entity.PasswordReset;
+import com.authentication.api.infrastructure.persistence.entity.VerificationToken;
+import com.authentication.api.infrastructure.persistence.jpa.PasswordResetJpaRepository;
+import com.authentication.api.infrastructure.persistence.jpa.VerificationTokenJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.authentication.api.infrastructure.controller;
 
 import com.authentication.api.domain.service.PrivilegeService;
-import com.authentication.api.infrastructure.persistense.entity.Privilege;
+import com.authentication.api.infrastructure.persistence.entity.Privilege;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

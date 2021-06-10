@@ -1,6 +1,6 @@
-package com.authentication.api.infrastructure.persistense.jpa;
+package com.authentication.api.infrastructure.persistence.jpa;
 
-import com.authentication.api.infrastructure.persistense.entity.PasswordReset;
+import com.authentication.api.infrastructure.persistence.entity.PasswordReset;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

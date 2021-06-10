@@ -1,9 +1,9 @@
 package com.authentication.api.domain.service.auth;
 
-import com.authentication.api.infrastructure.persistense.entity.Privilege;
-import com.authentication.api.infrastructure.persistense.entity.Role;
-import com.authentication.api.infrastructure.persistense.entity.User;
-import com.authentication.api.infrastructure.persistense.jpa.UserJpaRepository;
+import com.authentication.api.infrastructure.persistence.entity.Privilege;
+import com.authentication.api.infrastructure.persistence.entity.Role;
+import com.authentication.api.infrastructure.persistence.entity.User;
+import com.authentication.api.infrastructure.persistence.jpa.UserJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

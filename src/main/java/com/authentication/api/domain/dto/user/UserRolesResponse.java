@@ -1,6 +1,6 @@
 package com.authentication.api.domain.dto.user;
 
-import com.authentication.api.infrastructure.persistense.entity.Role;
+import com.authentication.api.infrastructure.persistence.entity.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
